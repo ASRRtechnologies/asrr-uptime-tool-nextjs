@@ -1,0 +1,89 @@
+.modal-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:10000;
+}
+
+.modal{
+  width: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include flex(center, center, column);
+  background: $modal-color;
+  z-index:10000;
+
+  .modal-close{
+    position: fixed;
+    right: 5%;
+    top:5%;
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .modal-close-mobile{
+    position: fixed;
+    right: 10%;
+    top:10%;
+    width: 15px;
+    height: auto;
+    cursor: pointer;
+    display: none;
+  }
+
+  .modal-logo{
+    width: 200px;
+    height: auto;
+    margin-top: 30px;
+  }
+
+  &.json{
+
+  }
+
+}
+
+.json-data-modal{
+  width: 95%;
+  height: 80vh;
+  padding: 0 25px 25px 25px;
+  background-color: white;
+  overflow-y: auto;
+  margin-top: 20px;
+
+  pre{
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    .modal-close {
+      top: 3%;
+    }
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .modal {
+    height: auto;
+    .modal-logo{
+      display: none;
+    }
+
+    .modal-close{
+      display: none;
+    }
+
+    .modal-close-mobile{
+      display: flex;
+    }
+
+  }
+}

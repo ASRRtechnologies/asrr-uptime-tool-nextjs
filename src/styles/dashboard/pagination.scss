@@ -1,0 +1,74 @@
+.pagination {
+  @include flex(flex-start, center, row);
+  width: auto;
+  margin-bottom: 25px;
+
+
+
+}
+
+.pagination-container {
+  @include flex(center, center, row);
+  width: auto;
+  font-size: 12px;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.23);
+
+  &.top {
+    margin-top: 25px;
+  }
+
+  &.bottom {
+    position: fixed;
+    bottom:20px;
+    width: calc(100vw - 50px);
+  }
+
+  li {
+    list-style: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    @include flex(center, center, column);
+
+    a {
+      position: relative;
+      z-index: 1;
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      color: #acacac;
+      border-radius: 2px;
+      margin-bottom: 0;
+    }
+
+    a:hover {
+      color: white;
+      background-color: #1c76ee;
+    }
+
+    &.active {
+      a {
+        color: white;
+        background-color: #1c76ee;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  .pagination  {
+    width: 100%;
+    z-index: 1000;
+    position: sticky;
+    top: 70px;
+  }
+
+  .pagination-container  {
+    width: 100%;
+
+  }
+
+}

@@ -1,0 +1,92 @@
+.message-container{
+  width:100%;
+  height:auto;
+  min-height:80px;
+  @include flex(space-between, center, row);
+  position: relative;
+  padding:20px;
+
+  p{
+    color:#1a1a1a !important;
+    margin-bottom: 0;
+    font-family: Heijmans-Normal, serif;
+    font-size: 16px;
+  }
+
+  &:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    @include size(3px, 100%);
+  }
+
+  .message{
+    @include size(auto, 100%);
+    @include flex(flex-start, center, row);
+  }
+
+  .icon{
+    @include size(auto, 100%);
+    @include flex(center, center, row);
+    margin-right: 20px;
+
+    img{
+      width: 30px;
+      height: auto;
+    }
+  }
+
+  .close-button{
+    @include size(auto, 100%);
+    @include flex(center, center, row);
+
+    img{
+      width: 20px;
+      height: auto;
+    }
+  }
+
+  &.success{
+    &:before{
+      background-color: #229f0d;
+    }
+  }
+
+  &.error{
+    &:before{
+      background-color: #FF0000;
+    }
+  }
+
+  &.info{
+    &:before{
+      background-color: #1c76ee;
+    }
+  }
+
+}
+
+.Toastify__toast-container{
+  width: 100%;
+  max-width: 500px;
+  z-index: 1000000;
+  @include flex(center, center, column);
+
+
+}
+
+.Toastify__toast--default{
+  background-color: transparent;
+}
+
+.Toastify__toast {
+  padding:0;
+}
+
+.Toastify__progress-bar--default{
+  background: $primary-color;
+  //z-index: ;
+
+
+}
