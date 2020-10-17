@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import useSWR from "swr";
 
 const useRowStyles = makeStyles({
     root: {
@@ -23,23 +24,19 @@ const useRowStyles = makeStyles({
     },
 });
 
-function createData(name, calories, fat, carbs, protein, price) {
+function createData(application) {
     return {
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
-        price,
-        history: [
-            { date: '2020-01-05', customerId: '11091700', amount: 3 },
-            { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-        ],
+        name: application.applicationName,
+        company: application.companyName,
+        online: application.online,
+        onlineServices: application.onlineServices,
+        totalServices: application.totalServices,
+        services: application.services,
     };
 }
 
 function Row(props) {
-    const { row } = props;
+    const {row} = props;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
 
@@ -48,24 +45,21 @@ function Row(props) {
             <TableRow className={classes.root}>
                 <TableCell>
                     <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.applicationName}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{row.companyName}</TableCell>
+                <TableCell align="right">{row.online ? "online" : "offline"}</TableCell>
+                <TableCell align="right">{row.onlineServices}</TableCell>
+                <TableCell align="right">{row.totalServices}</TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
-                            <Typography variant="h6" gutterBottom component="div">
-                                History
-                            </Typography>
+                        <Box margin={0}>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
@@ -76,7 +70,7 @@ function Row(props) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.history.map((historyRow) => (
+                                    {row.services.map((historyRow) => (
                                         <TableRow key={historyRow.date}>
                                             <TableCell component="th" scope="row">
                                                 {historyRow.date}
@@ -100,47 +94,46 @@ function Row(props) {
 
 Row.propTypes = {
     row: PropTypes.shape({
-        calories: PropTypes.number.isRequired,
-        carbs: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        history: PropTypes.arrayOf(
+        name: PropTypes.string.isRequired,
+        company: PropTypes.string.isRequired,
+        online: PropTypes.bool.isRequired,
+        onlineServices: PropTypes.number.isRequired,
+        totalServices: PropTypes.number.isRequired,
+        services: PropTypes.arrayOf(
             PropTypes.shape({
                 amount: PropTypes.number.isRequired,
                 customerId: PropTypes.string.isRequired,
                 date: PropTypes.string.isRequired,
             }),
         ).isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        protein: PropTypes.number.isRequired,
     }).isRequired,
 };
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
+
 
 export default function CollapsibleTable() {
+    const {data: applications} = useSWR('https://uptime-tool.asrr-tech.com/api/v1/uptime/all')
+
+    const rows = applications ? applications.map(application => {
+        return createData(application)
+    }) : {}
+
+    console.log(applications)
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
-                        <TableCell />
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell/>
+                        <TableCell>Application Name</TableCell>
+                        <TableCell align="right">Company</TableCell>
+                        <TableCell align="right">Status</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <Row key={row.name} row={row} />
+                    {applications && applications.map((app) => (
+                        <Row key={app.applicationName} row={app}/>
                     ))}
                 </TableBody>
             </Table>
