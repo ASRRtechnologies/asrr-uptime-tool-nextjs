@@ -49,10 +49,21 @@ body {
   @include size(100%, 100%);
   padding: 0 30px 50px 50px;
   overflow-y:auto;
-  background-color: #F4F5F9;
+  background-image: linear-gradient(135deg, #f3f5f8 0%, #f3f5f8 99%, #bec7db 100%);
   transition: width 200ms ease-in-out;
 }
 
 h1, h2, p, a {
   font-family: inherit;
 }
+
+h1{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h2{
+  font-size: 18px;
+  font-weight: bold;
+}
+

@@ -1,7 +1,24 @@
 .header{
   @include size(100%, 80px);
-  background-color: red;
+  @include flex(flex-start, center, row);
   //margin: 0 -30px 0 -50px;
   //padding: 0 30px 0 50px;
   //box-sizing: content-box;
+}
+
+.header-information{
+  @include size(100%, 100%);
+  max-width: 350px;
+  @include flex(space-between, center, row);
+  h1{
+    margin-right: 0.5em;
+  }
+}
+
+.header-dropdown{
+  @include flex(flex-start, center, row);
+  width: auto;
+  p{
+    margin-right: 0.75em;
+  }
 }

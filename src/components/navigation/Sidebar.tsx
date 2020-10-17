@@ -1,6 +1,9 @@
 import React, {FunctionComponent} from 'react';
 import Dashboard from "../icons/Dashboard";
 import Indent from "../icons/Indent";
+// @ts-ignore
+import Logo from "../../../public/assets/images/logo/asrr-logo-black.svg"
+
 
 interface SidebarProps {
     collapsed: boolean,
@@ -16,8 +19,7 @@ const Sidebar: FunctionComponent<SidebarProps> = ({collapsed, className, ...prop
     return (
         <div className={`sidebar ${className}`}>
             <div className={`sidebar-header ${collapsed ? "sidebar-header-collapsed": ""}`}>
-                {/*<img src={} alt="ASRR-Logo"/>*/}
-                <h1>ASRR</h1>
+                <img src={Logo} alt="ASRR-Logo"/>
             </div>
             <ul className="sidebar-list">
                 <li className="sidebar-item">
@@ -29,8 +31,6 @@ const Sidebar: FunctionComponent<SidebarProps> = ({collapsed, className, ...prop
             <div className="sidebar-footer">
                 <Indent onClick={props.toggleSidebar}/>
             </div>
-
-
 
         </div>
     );
