@@ -14,8 +14,7 @@ type IPanel<P> = React.FunctionComponent<P> & {
 const Index: IPanel<PageProps> = ({className, collapsed, ...props}) => {
 
     return (
-        <div className={` ${className}`}>
-            <h1>Hihihi</h1>
+        <div className={`content ${className}`}>
             <DeviceOverviewDashboard/>
         </div>
     )
