@@ -11,7 +11,7 @@ interface MainProps {
 const Layout: FunctionComponent<MainProps> = ({collapsed, children, className, ...props}) => {
     return (
         <div className={`main ${className}`}>
-            <Header/>
+            <Header collapsed/>
             {children}
         </div>
     );

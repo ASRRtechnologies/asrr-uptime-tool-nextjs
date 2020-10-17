@@ -34,7 +34,7 @@ const Header: FunctionComponent<HeaderProps> = ({collapsed, className, ...props}
             </div>
 
             <div>
-                {transactionList[0].pc}
+                {/*{transactionList[0].pc}*/}
             </div>
 
 
