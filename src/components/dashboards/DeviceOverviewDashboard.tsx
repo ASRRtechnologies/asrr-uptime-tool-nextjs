@@ -16,6 +16,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import useSWR from "swr";
 import humanizeDuration from 'humanize-duration';
+import {Beenhere, Brightness1} from "@material-ui/icons";
+import {Checkbox} from "@material-ui/core";
 
 const useRowStyles = makeStyles({
     root: {
@@ -63,8 +65,8 @@ function Row(props) {
                             <Table size="small" aria-label="purchases" color="grey">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Name</TableCell>
                                         <TableCell>Status</TableCell>
+                                        <TableCell>Name</TableCell>
                                         <TableCell align="right">Restarts</TableCell>
                                         <TableCell align="right">Uptime</TableCell>
                                         {/*<TableCell align="right">Updated</TableCell>*/}
@@ -75,17 +77,23 @@ function Row(props) {
                                 <TableBody>
                                     {row.services.map((service) => (
                                         <TableRow key={service.serviceName}>
+                                            <TableCell padding="checkbox">
+                                                <Checkbox
+                                                    checked={service.online}
+                                                />
+                                            </TableCell>
                                             <TableCell component="th" scope="row">
                                                 {service.serviceName}
                                             </TableCell>
-                                            <TableCell>{service.online ? "online" : "offline"}</TableCell>
                                             <TableCell align="right">{service.restarts}</TableCell>
-                                            <TableCell align="right">{humanizeDuration(service.uptime * 10000, {largest: 1})}</TableCell>
+                                            <TableCell
+                                                align="right">{humanizeDuration(service.uptime * 10000, {largest: 1})}</TableCell>
                                             {/*<TableCell align="right">{service.updated}</TableCell>*/}
                                             <TableCell align="right">
                                                 {Math.round(service.upTicks / (service.downTicks + service.upTicks) * 100)}%
                                             </TableCell>
-                                            <TableCell align="right">{service.nodes && Object.keys(service.nodes).length}</TableCell>
+                                            <TableCell
+                                                align="right">{service.nodes && Object.keys(service.nodes).length}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
