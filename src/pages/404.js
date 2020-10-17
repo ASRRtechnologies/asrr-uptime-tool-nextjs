@@ -1,11 +1,10 @@
 import React from 'react';
-import GenericError from "@/error/GenericError";
 
 function Error() {
 
     return (
         <>
-            <GenericError/>
+            404
         </>
     );
 }
