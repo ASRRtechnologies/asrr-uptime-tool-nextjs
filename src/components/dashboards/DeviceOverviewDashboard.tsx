@@ -87,7 +87,7 @@ function Row(props) {
                                             </TableCell>
                                             <TableCell align="right">{service.restarts}</TableCell>
                                             <TableCell
-                                                align="right">{humanizeDuration(service.uptime * 10000, {largest: 1})}</TableCell>
+                                                align="right">{humanizeDuration(service.uptime * 1000, {largest: 1})}</TableCell>
                                             {/*<TableCell align="right">{service.updated}</TableCell>*/}
                                             <TableCell align="right">
                                                 {Math.round(service.upTicks / (service.downTicks + service.upTicks) * 100)}%

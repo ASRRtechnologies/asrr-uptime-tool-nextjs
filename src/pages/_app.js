@@ -23,7 +23,7 @@ const Application = styled("div")`
 const App = (props) => {
     const {Component, pageProps, router} = props;
     const [collapsed, setCollapsed] = useState(false);
-    const Layout = Component.layout;
+    const Layout = Component.layout ? Component.layout : null;
 
     React.useEffect(() => {
         // Remove the server-side injected CSS.
