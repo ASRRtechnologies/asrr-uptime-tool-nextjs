@@ -34,7 +34,7 @@ function createData(application) {
         online: application.online,
         onlineServices: application.onlineServices,
         totalServices: application.totalServices,
-        services: application.services,
+        microservices: application.microservices,
     };
 }
 
@@ -75,7 +75,7 @@ function Row(props) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.services.map((service) => (
+                                    {row.microservices.map((service) => (
                                         <TableRow key={service.serviceName}>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
@@ -126,6 +126,7 @@ Row.propTypes = {
 
 export default function CollapsibleTable() {
     const {data: applications} = useSWR('https://uptime-tool.asrr-tech.com/api/v1/uptime/all')
+    // const {data: applications} = useSWR('http://localhost:8080/api/v1/uptime/all')
 
     const rows = applications ? applications.map(application => {
         return createData(application)
