@@ -17,7 +17,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import useSWR from "swr";
 import humanizeDuration from 'humanize-duration';
 import {Beenhere, Brightness1} from "@material-ui/icons";
-import {Checkbox} from "@material-ui/core";
+import {Checkbox, Chip} from "@material-ui/core";
 
 const useRowStyles = makeStyles({
     root: {
@@ -43,6 +43,8 @@ function Row(props) {
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
 
+
+
     return (
         <React.Fragment>
             <TableRow hover className={classes.root}>
@@ -55,7 +57,7 @@ function Row(props) {
                     {row.applicationName}
                 </TableCell>
                 <TableCell align="right">{row.companyName}</TableCell>
-                <TableCell align="right">{row.online ? "online" : "offline"}</TableCell>
+                <TableCell align="right"> <Chip label={row.online ? "online" : "offline"} color={row.online ? "primary" : "default"} /></TableCell>
                 <TableCell align="right">{row.onlineServices}/{row.totalServices}</TableCell>
             </TableRow>
             <TableRow>
@@ -93,7 +95,7 @@ function Row(props) {
                                                 {Math.round(service.upTicks / (service.downTicks + service.upTicks) * 100)}%
                                             </TableCell>
                                             <TableCell
-                                                align="right">{service.nodes && Object.keys(service.nodes).length}</TableCell>
+                                                align="right">{service.nodes && Object.keys(service.nodes).length} </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
